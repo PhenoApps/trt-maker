@@ -108,6 +108,7 @@ export function parseCO(buffer: ArrayBuffer): Trait[] {
     variableSynonyms: findCol(headers, 'Variable synonyms'),
     traitDescription: findCol(headers, 'Trait description'),
     mainAbbrev: findCol(headers, 'Main trait abbreviation'),
+    growthStage: findCol(headers, 'Growth stage'),
     scaleName: findCol(headers, 'Scale name'),
     scaleClass: findCol(headers, 'Scale class'),
     decimalPlaces: findCol(headers, 'Decimal places'),
@@ -156,6 +157,8 @@ export function parseCO(buffer: ArrayBuffer): Trait[] {
       })
     }
 
+    const growthStage = col.growthStage !== -1 ? str(row[col.growthStage]) : ''
+
     const trait: Trait = {
       id: nextId(),
       name,
@@ -165,6 +168,7 @@ export function parseCO(buffer: ArrayBuffer): Trait[] {
       defaultValue: '',
       details: col.traitDescription !== -1 ? str(row[col.traitDescription]) : '',
       isVisible: true,
+      growthStage: growthStage || undefined,
     }
 
     if (Object.keys(attributes).length > 0) {

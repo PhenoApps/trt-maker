@@ -1,7 +1,10 @@
-import { useState } from 'react'
-import type { Trait } from './types/trait'
+import { useMemo, useState } from 'react'
+import type { FormatType, Trait } from './types/trait'
 import { Header } from './components/Header'
 import { TraitList } from './components/TraitList'
+import { TraitFilter } from './components/TraitFilter'
+import type { TraitFilters } from './utils/traitFilter'
+import { EMPTY_FILTERS, countBy, filterTraits, isFiltering, traitStatus } from './utils/traitFilter'
 import { TraitFormModal } from './components/TraitFormModal'
 import { BrapiModal } from './components/BrapiModal'
 import { parseTrt } from './utils/trtParser'
@@ -20,10 +23,33 @@ export function App() {
   const [editingTrait, setEditingTrait] = useState<Trait | null>(null)
   const [brapiModalOpen, setBrapiModalOpen] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
+  const [filters, setFilters] = useState<TraitFilters>(EMPTY_FILTERS)
+
+  const visibleTraits = useMemo(() => filterTraits(traits, filters), [traits, filters])
+
+  // Selection only applies to what is shown, so a trait edited out of view can't be bulk-deleted unseen
+  const visibleSelectedIds = useMemo(
+    () => new Set(visibleTraits.filter((t) => selectedIds.has(t.id)).map((t) => t.id)),
+    [visibleTraits, selectedIds],
+  )
+
+  const formatCounts = useMemo(() => countBy<FormatType>(traits, (t) => t.format), [traits])
+  const growthStageCounts = useMemo(() => countBy(traits, (t) => t.growthStage || undefined), [traits])
+  const statusCounts = useMemo(() => countBy(traits, traitStatus), [traits])
 
   function showToast(msg: string) {
     setToast(msg)
     setTimeout(() => setToast(null), 3000)
+  }
+
+  function handleFiltersChange(patch: Partial<TraitFilters>) {
+    setFilters((prev) => ({ ...prev, ...patch }))
+    setSelectedIds(new Set())
+  }
+
+  function clearFilter() {
+    setFilters(EMPTY_FILTERS)
+    setSelectedIds(new Set())
   }
 
   function handleLoad(content: string, filename: string) {
@@ -40,7 +66,7 @@ export function App() {
         return
       }
       setTraits(loaded)
-      setSelectedIds(new Set())
+      clearFilter()
       showToast(`Loaded ${loaded.length} trait(s) from ${filename}`)
     } catch {
       showToast('Failed to parse file. Make sure it is a valid .trt (JSON or CSV) file.')
@@ -65,7 +91,7 @@ export function App() {
           return
         }
         setTraits(loaded)
-        setSelectedIds(new Set())
+        clearFilter()
         showToast(`Imported ${loaded.length} trait(s) from ${file.name}`)
       } catch {
         showToast('Failed to parse CO file. Make sure it is a valid Crop Ontology Excel file.')
@@ -95,7 +121,7 @@ export function App() {
     if (traits.length === 0) return
     if (!window.confirm('Clear all traits and start fresh?')) return
     setTraits([])
-    setSelectedIds(new Set())
+    clearFilter()
   }
 
   function handleAddTrait() {
@@ -118,10 +144,10 @@ export function App() {
   }
 
   function handleSelectAll() {
-    if (selectedIds.size === traits.length) {
+    if (visibleTraits.length > 0 && visibleSelectedIds.size === visibleTraits.length) {
       setSelectedIds(new Set())
     } else {
-      setSelectedIds(new Set(traits.map((t) => t.id)))
+      setSelectedIds(new Set(visibleTraits.map((t) => t.id)))
     }
   }
 
@@ -153,9 +179,10 @@ export function App() {
   }
 
   function handleBulkDelete() {
-    if (selectedIds.size === 0) return
-    if (!window.confirm(`Delete ${selectedIds.size} selected trait${selectedIds.size !== 1 ? 's' : ''}?`)) return
-    setTraits((prev) => prev.filter((t) => !selectedIds.has(t.id)))
+    const count = visibleSelectedIds.size
+    if (count === 0) return
+    if (!window.confirm(`Delete ${count} selected trait${count !== 1 ? 's' : ''}?`)) return
+    setTraits((prev) => prev.filter((t) => !visibleSelectedIds.has(t.id)))
     setSelectedIds(new Set())
   }
 
@@ -193,16 +220,32 @@ export function App() {
       <main className="flex-1 mx-auto w-full max-w-2xl px-4 py-6">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-sm font-medium text-gray-500">
-            {traits.length === 0 ? 'Traits' : `${traits.length} trait${traits.length !== 1 ? 's' : ''}`}
+            {traits.length === 0
+              ? 'Traits'
+              : isFiltering(filters)
+                ? `Showing ${visibleTraits.length} of ${traits.length} trait${traits.length !== 1 ? 's' : ''}`
+                : `${traits.length} trait${traits.length !== 1 ? 's' : ''}`}
           </h2>
           {traits.length > 0 && (
             <p className="text-xs text-gray-400">Drag rows to reorder</p>
           )}
         </div>
 
+        {traits.length > 0 && (
+          <TraitFilter
+            filters={filters}
+            formatCounts={formatCounts}
+            growthStageCounts={growthStageCounts}
+            statusCounts={statusCounts}
+            onChange={handleFiltersChange}
+            onClear={clearFilter}
+          />
+        )}
+
         <TraitList
           traits={traits}
-          selectedIds={selectedIds}
+          visibleTraits={visibleTraits}
+          selectedIds={visibleSelectedIds}
           onReorder={setTraits}
           onEdit={handleEdit}
           onDelete={handleDelete}
@@ -210,6 +253,7 @@ export function App() {
           onToggleSelect={handleToggleSelect}
           onSelectAll={handleSelectAll}
           onBulkDelete={handleBulkDelete}
+          onClearFilter={clearFilter}
         />
       </main>
 

@@ -82,4 +82,6 @@ export interface TraitJson {
 // Internal app representation — adds a stable client-side id for React keys / dnd
 export interface Trait extends TraitJson {
   id: string
+  // Import metadata (Crop Ontology / BrAPI) used for filtering; not part of the .trt format
+  growthStage?: string
 }

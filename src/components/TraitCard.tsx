@@ -90,9 +90,19 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
         )}
       </div>
 
+      {/* Growth stage (from CO / BrAPI imports) */}
+      {trait.growthStage && (
+        <span
+          className="max-w-[8rem] truncate rounded border border-gray-200 px-1.5 py-0.5 text-xs text-gray-500 flex-shrink-0"
+          title={`Growth stage: ${trait.growthStage}`}
+        >
+          {trait.growthStage}
+        </span>
+      )}
+
       {/* Visibility indicator */}
       {trait.isVisible === false && (
-        <span className="text-xs text-gray-400 flex-shrink-0" title="Hidden">🚫</span>
+        <span className="text-xs text-gray-400 flex-shrink-0" title="Inactive (hidden in Field Book)">🚫</span>
       )}
 
       {/* Actions */}
