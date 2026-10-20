@@ -115,8 +115,8 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
         <span className="text-xs text-gray-400 flex-shrink-0" title="Hidden">🚫</span>
       )}
 
-      {/* Actions */}
-      <div className="flex gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+      {/* Actions — always shown on touch screens; on mouse devices revealed on hover or keyboard focus */}
+      <div className="flex gap-1 flex-shrink-0 transition-opacity [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100">
         <button
           onClick={onDuplicate}
           className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"

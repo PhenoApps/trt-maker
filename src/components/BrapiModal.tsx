@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react'
 import type { Trait } from '../types/trait'
 import { FORMAT_LABELS } from '../types/trait'
 import { BrapiError, fetchBrapiVariables } from '../utils/brapiImporter'
+import { useBackdropClose } from '../utils/useBackdropClose'
 
 const FORMAT_COLORS: Record<string, string> = {
   numeric: 'bg-blue-100 text-blue-800',
@@ -40,6 +41,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
   const [search, setSearch] = useState('')
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const abortRef = useRef<AbortController | null>(null)
+  const backdropProps = useBackdropClose(onClose)
 
   const existingLower = useMemo(
     () => new Set(existingTraitNames.map((n) => n.toLowerCase())),
@@ -131,9 +133,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
+      {...backdropProps}
     >
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col">
         {/* Header */}

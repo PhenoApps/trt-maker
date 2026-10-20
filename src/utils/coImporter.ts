@@ -1,4 +1,3 @@
-import * as XLSX from 'xlsx'
 import type { Trait, FormatType, TraitAttributes } from '../types/trait'
 
 let idCounter = 0
@@ -90,7 +89,9 @@ function buildCategoryParser(headers: unknown[]): (row: unknown[]) => string[] {
   return () => []
 }
 
-export function parseCO(buffer: ArrayBuffer): Trait[] {
+export async function parseCO(buffer: ArrayBuffer): Promise<Trait[]> {
+  // Loaded on demand — xlsx is most of the bundle and only needed for CO imports
+  const XLSX = await import('xlsx')
   const wb = XLSX.read(new Uint8Array(buffer), { type: 'array' })
   const sheetName =
     wb.SheetNames.find((n) => n.trim().toLowerCase() === 'template for submission') ??

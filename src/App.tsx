@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Trait } from './types/trait'
 import { Header } from './components/Header'
 import { TraitList } from './components/TraitList'
@@ -24,6 +24,21 @@ export function App() {
   const [brapiModalOpen, setBrapiModalOpen] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
   const [filters, setFilters] = useState<TraitFilters>(EMPTY_FILTERS)
+  // The list as last loaded or exported; any edit produces a new array, so identity tells us if work is unsaved
+  const [savedTraits, setSavedTraits] = useState<Trait[]>(traits)
+  const toastTimer = useRef<ReturnType<typeof setTimeout>>()
+
+  const hasUnsavedChanges = traits.length > 0 && traits !== savedTraits
+
+  useEffect(() => {
+    if (!hasUnsavedChanges) return
+    function handleBeforeUnload(e: BeforeUnloadEvent) {
+      e.preventDefault()
+      e.returnValue = '' // still required by some browsers to show the prompt
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [hasUnsavedChanges])
 
   const visibleTraits = useMemo(() => filterTraits(traits, filters), [traits, filters])
 
@@ -35,7 +50,13 @@ export function App() {
 
   function showToast(msg: string) {
     setToast(msg)
-    setTimeout(() => setToast(null), 3000)
+    clearTimeout(toastTimer.current)
+    toastTimer.current = setTimeout(() => setToast(null), 3000)
+  }
+
+  function handleExport() {
+    downloadTrt(traits)
+    setSavedTraits(traits)
   }
 
   function handleFiltersChange(next: TraitFilters) {
@@ -62,6 +83,7 @@ export function App() {
         return
       }
       setTraits(loaded)
+      setSavedTraits(loaded)
       clearFilter()
       showToast(`Loaded ${loaded.length} trait(s) from ${filename}`)
     } catch {
@@ -71,9 +93,9 @@ export function App() {
 
   function handleLoadCO(file: File) {
     const reader = new FileReader()
-    reader.onload = () => {
+    reader.onload = async () => {
       try {
-        const loaded = parseCO(reader.result as ArrayBuffer)
+        const loaded = await parseCO(reader.result as ArrayBuffer)
         if (loaded.length === 0) {
           showToast('No valid traits found in CO file.')
           return
@@ -87,6 +109,7 @@ export function App() {
           return
         }
         setTraits(loaded)
+        setSavedTraits(loaded)
         clearFilter()
         showToast(`Imported ${loaded.length} trait(s) from ${file.name}`)
       } catch {
@@ -97,8 +120,14 @@ export function App() {
   }
 
   function handleBrapiImport(imported: Trait[]) {
-    const existingLower = new Set(traits.map((t) => t.name.toLowerCase()))
-    const newTraits = imported.filter((t) => !existingLower.has(t.name.toLowerCase()))
+    // Skip names already in the list and repeats within the import itself
+    const seenLower = new Set(traits.map((t) => t.name.toLowerCase()))
+    const newTraits = imported.filter((t) => {
+      const key = t.name.toLowerCase()
+      if (seenLower.has(key)) return false
+      seenLower.add(key)
+      return true
+    })
     if (newTraits.length === 0) {
       showToast('All selected traits already exist.')
     } else {
@@ -208,7 +237,7 @@ export function App() {
         onLoad={handleLoad}
         onLoadCO={handleLoadCO}
         onOpenBrapi={() => setBrapiModalOpen(true)}
-        onExport={() => downloadTrt(traits)}
+        onExport={handleExport}
         onNew={handleNew}
         onAddTrait={handleAddTrait}
       />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { Trait, TraitAttributes, FormatType } from '../types/trait'
+import { useBackdropClose } from '../utils/useBackdropClose'
 import { FORMAT_TYPES, FORMAT_LABELS } from '../types/trait'
 import { NumericFields } from './fields/NumericFields'
 import { CategoricalFields } from './fields/CategoricalFields'
@@ -25,9 +26,15 @@ const BLANK: Omit<Trait, 'id'> = {
   attributes: {},
 }
 
+// Options that apply to every format, kept when the format changes
+const UNIVERSAL_ATTRS: (keyof TraitAttributes)[] = [
+  'repeatedMeasure', 'autoSwitchPlot', 'attachPhoto', 'attachVideo', 'attachAudio', 'resourceFile',
+]
+
 export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props) {
   const [form, setForm] = useState<Omit<Trait, 'id'>>(BLANK)
   const [nameError, setNameError] = useState('')
+  const backdropProps = useBackdropClose(onClose)
 
   useEffect(() => {
     if (trait) {
@@ -60,7 +67,11 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
   }
 
   function handleFormatChange(format: FormatType) {
-    set({ format, attributes: {} })
+    const kept: Record<string, unknown> = {}
+    for (const key of UNIVERSAL_ATTRS) {
+      if (form.attributes?.[key] !== undefined) kept[key] = form.attributes[key]
+    }
+    set({ format, attributes: kept as TraitAttributes })
   }
 
   const attrs = form.attributes ?? {}
@@ -91,7 +102,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
+      {...backdropProps}
     >
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between px-6 py-4 border-b">

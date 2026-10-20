@@ -222,7 +222,11 @@ export async function fetchBrapiVariables(
   signal: AbortSignal,
   onProgress?: (fetched: number) => void,
 ): Promise<Trait[]> {
-  const base = serverUrl.replace(/\/+$/, '')
+  // Accept the server root or a URL that already ends in /brapi, /brapi/v1 or /brapi/v2
+  const base = serverUrl
+    .trim()
+    .replace(/\/+$/, '')
+    .replace(/\/brapi(\/v[12])?$/i, '')
 
   // Try BrAPI v2 first with a lightweight probe (pageSize=1)
   let path: string
