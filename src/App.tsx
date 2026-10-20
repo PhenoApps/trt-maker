@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react'
-import type { FormatType, Trait } from './types/trait'
+import type { Trait } from './types/trait'
 import { Header } from './components/Header'
 import { TraitList } from './components/TraitList'
 import { TraitFilter } from './components/TraitFilter'
 import type { TraitFilters } from './utils/traitFilter'
-import { EMPTY_FILTERS, countBy, filterTraits, isFiltering, traitStatus } from './utils/traitFilter'
+import { EMPTY_FILTERS, filterTraits, isFiltering } from './utils/traitFilter'
 import { TraitFormModal } from './components/TraitFormModal'
 import { BrapiModal } from './components/BrapiModal'
 import { parseTrt } from './utils/trtParser'
@@ -33,17 +33,13 @@ export function App() {
     [visibleTraits, selectedIds],
   )
 
-  const formatCounts = useMemo(() => countBy<FormatType>(traits, (t) => t.format), [traits])
-  const growthStageCounts = useMemo(() => countBy(traits, (t) => t.growthStage || undefined), [traits])
-  const statusCounts = useMemo(() => countBy(traits, traitStatus), [traits])
-
   function showToast(msg: string) {
     setToast(msg)
     setTimeout(() => setToast(null), 3000)
   }
 
-  function handleFiltersChange(patch: Partial<TraitFilters>) {
-    setFilters((prev) => ({ ...prev, ...patch }))
+  function handleFiltersChange(next: TraitFilters) {
+    setFilters(next)
     setSelectedIds(new Set())
   }
 
@@ -233,10 +229,8 @@ export function App() {
 
         {traits.length > 0 && (
           <TraitFilter
+            traits={traits}
             filters={filters}
-            formatCounts={formatCounts}
-            growthStageCounts={growthStageCounts}
-            statusCounts={statusCounts}
             onChange={handleFiltersChange}
             onClear={clearFilter}
           />

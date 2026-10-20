@@ -39,7 +39,7 @@ export function exportTraits(traits: Trait[]): string {
   const output: { traits: TraitJson[] } = {
     traits: traits.map((t, i) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { id: _id, growthStage: _growthStage, ...rest } = t
+      const { id: _id, growthStage: _growthStage, status: _status, ...rest } = t
       const json: TraitJson = {
         ...rest,
         alias: rest.alias || rest.name,

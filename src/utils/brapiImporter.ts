@@ -34,6 +34,7 @@ interface BrapiVariable {
   observationVariableName?: string
   synonyms?: string[]
   growthStage?: string
+  status?: string
   trait?: {
     traitName?: string
     traitDescription?: string
@@ -151,6 +152,7 @@ function convertVariable(v: BrapiVariable): Trait {
     defaultValue: '',
     isVisible: true,
     ...(v.growthStage?.trim() ? { growthStage: v.growthStage.trim() } : {}),
+    ...(v.status?.trim() ? { status: v.status.trim() } : {}),
     ...(details ? { details } : {}),
     ...(synonyms.length > 0 ? { synonyms } : {}),
     ...(Object.keys(attributes).length > 0 ? { attributes } : {}),

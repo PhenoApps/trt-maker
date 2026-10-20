@@ -100,9 +100,19 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
         </span>
       )}
 
+      {/* Variable status (from CO / BrAPI imports) */}
+      {trait.status && (
+        <span
+          className="max-w-[6rem] truncate rounded border border-gray-200 px-1.5 py-0.5 text-xs text-gray-500 flex-shrink-0"
+          title={`Status: ${trait.status}`}
+        >
+          {trait.status}
+        </span>
+      )}
+
       {/* Visibility indicator */}
       {trait.isVisible === false && (
-        <span className="text-xs text-gray-400 flex-shrink-0" title="Inactive (hidden in Field Book)">🚫</span>
+        <span className="text-xs text-gray-400 flex-shrink-0" title="Hidden">🚫</span>
       )}
 
       {/* Actions */}
