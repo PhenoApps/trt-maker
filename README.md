@@ -2,7 +2,7 @@
 
 A browser-based editor for creating and editing [Field Book](https://github.com/PhenoApps/Field-Book) trait files (`.trt`).
 
-**Live app:** https://trife.github.io/trt-maker/
+**Live app:** https://phenoapps.github.io/trt-maker/
 
 ## Features
 
