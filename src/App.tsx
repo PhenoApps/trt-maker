@@ -26,7 +26,7 @@ export function App() {
   const [filters, setFilters] = useState<TraitFilters>(EMPTY_FILTERS)
   // The list as last loaded or exported; any edit produces a new array, so identity tells us if work is unsaved
   const [savedTraits, setSavedTraits] = useState<Trait[]>(traits)
-  const toastTimer = useRef<ReturnType<typeof setTimeout>>()
+  const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   const hasUnsavedChanges = traits.length > 0 && traits !== savedTraits
 
