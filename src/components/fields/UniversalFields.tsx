@@ -12,19 +12,19 @@ export function UniversalFields({ attrs, onChange }: Props) {
       <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">General options</p>
       <div className="grid grid-cols-2 gap-2">
         <label className="flex items-center gap-2 text-sm text-gray-700">
-          <input type="checkbox" className="rounded text-green-600" checked={attrs.repeatedMeasure ?? false} onChange={(e) => set({ repeatedMeasure: e.target.checked })} />
+          <input type="checkbox" className="rounded-sm text-green-600" checked={attrs.repeatedMeasure ?? false} onChange={(e) => set({ repeatedMeasure: e.target.checked })} />
           Repeated measure
         </label>
         <label className="flex items-center gap-2 text-sm text-gray-700">
-          <input type="checkbox" className="rounded text-green-600" checked={attrs.autoSwitchPlot ?? false} onChange={(e) => set({ autoSwitchPlot: e.target.checked })} />
+          <input type="checkbox" className="rounded-sm text-green-600" checked={attrs.autoSwitchPlot ?? false} onChange={(e) => set({ autoSwitchPlot: e.target.checked })} />
           Auto-advance plot
         </label>
         <label className="flex items-center gap-2 text-sm text-gray-700">
-          <input type="checkbox" className="rounded text-green-600" checked={attrs.attachPhoto ?? false} onChange={(e) => set({ attachPhoto: e.target.checked })} />
+          <input type="checkbox" className="rounded-sm text-green-600" checked={attrs.attachPhoto ?? false} onChange={(e) => set({ attachPhoto: e.target.checked })} />
           Attach photo
         </label>
         <label className="flex items-center gap-2 text-sm text-gray-700">
-          <input type="checkbox" className="rounded text-green-600" checked={attrs.attachAudio ?? false} onChange={(e) => set({ attachAudio: e.target.checked })} />
+          <input type="checkbox" className="rounded-sm text-green-600" checked={attrs.attachAudio ?? false} onChange={(e) => set({ attachAudio: e.target.checked })} />
           Attach audio
         </label>
       </div>

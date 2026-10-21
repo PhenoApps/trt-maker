@@ -91,7 +91,7 @@ export function TraitList({ traits, visibleTraits, selectedIds, onReorder, onEdi
           type="checkbox"
           checked={selectedIds.size === visibleTraits.length}
           onChange={onSelectAll}
-          className="h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 flex-shrink-0"
+          className="h-4 w-4 rounded-sm border-gray-300 text-blue-600 accent-blue-600 shrink-0"
           aria-label="Select all traits"
         />
         <span className="text-xs text-gray-500 select-none">
@@ -100,7 +100,7 @@ export function TraitList({ traits, visibleTraits, selectedIds, onReorder, onEdi
         {selectedIds.size > 0 && (
           <button
             onClick={onBulkDelete}
-            className="ml-auto text-xs font-medium text-red-600 hover:text-red-800 rounded px-2 py-0.5 hover:bg-red-50 transition-colors"
+            className="ml-auto text-xs font-medium text-red-600 hover:text-red-800 rounded-sm px-2 py-0.5 hover:bg-red-50 transition-colors"
           >
             Delete {selectedIds.size} trait{selectedIds.size !== 1 ? 's' : ''}
           </button>

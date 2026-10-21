@@ -47,7 +47,7 @@ export function Header({ traitCount, onLoad, onLoadCO, onOpenBrapi, onExport, on
       <div className="flex items-center gap-2 flex-wrap">
         <button
           onClick={onNew}
-          className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+          className="rounded-sm border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
           title="Clear all traits and start fresh"
         >
           New
@@ -55,7 +55,7 @@ export function Header({ traitCount, onLoad, onLoadCO, onOpenBrapi, onExport, on
 
         <button
           onClick={() => fileRef.current?.click()}
-          className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+          className="rounded-sm border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
         >
           Load .trt
         </button>
@@ -69,7 +69,7 @@ export function Header({ traitCount, onLoad, onLoadCO, onOpenBrapi, onExport, on
 
         <button
           onClick={() => coFileRef.current?.click()}
-          className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+          className="rounded-sm border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
           title="Import traits from a Crop Ontology (CO) trait dictionary Excel file"
         >
           Import CO
@@ -84,7 +84,7 @@ export function Header({ traitCount, onLoad, onLoadCO, onOpenBrapi, onExport, on
 
         <button
           onClick={onOpenBrapi}
-          className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+          className="rounded-sm border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
           title="Import traits from a BrAPI-compatible server"
         >
           Import BrAPI
@@ -93,14 +93,14 @@ export function Header({ traitCount, onLoad, onLoadCO, onOpenBrapi, onExport, on
         <button
           onClick={onExport}
           disabled={traitCount === 0}
-          className="rounded border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="rounded-sm border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Export .trt
         </button>
 
         <button
           onClick={onAddTrait}
-          className="rounded bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
+          className="rounded-sm bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
         >
           + Add Trait
         </button>

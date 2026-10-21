@@ -40,7 +40,7 @@ export function TraitFilter({ traits, filters, onChange, onClear }: Props) {
         <input
           type="search"
           placeholder="Filter by name, alias, or details…"
-          className="flex-1 min-w-[12rem] rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="flex-1 min-w-48 rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500"
           value={filters.query}
           onChange={(e) => onChange({ ...filters, query: e.target.value })}
           onKeyDown={(e) => {
@@ -52,7 +52,7 @@ export function TraitFilter({ traits, filters, onChange, onClear }: Props) {
           value=""
           onChange={(e) => e.target.value && addChip(e.target.value)}
           disabled={groups.length === 0}
-          className="rounded border border-gray-300 bg-white px-2 py-1.5 text-sm text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-40"
+          className="rounded-sm border border-gray-300 bg-white px-2 py-1.5 text-sm text-gray-700 shadow-xs focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500 disabled:opacity-40"
           aria-label="Add filter"
         >
           <option value="">+ Add filter</option>
@@ -96,7 +96,7 @@ export function TraitFilter({ traits, filters, onChange, onClear }: Props) {
           })}
           <button
             onClick={onClear}
-            className="rounded px-2 py-0.5 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            className="rounded-sm px-2 py-0.5 text-xs font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
             Clear all filters
           </button>

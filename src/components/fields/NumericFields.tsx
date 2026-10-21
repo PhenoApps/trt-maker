@@ -15,7 +15,7 @@ export function NumericFields({ attrs, onChange }: Props) {
           <span className="text-sm font-medium text-gray-700">Minimum</span>
           <input
             type="number"
-            className="mt-1 block w-full rounded border-gray-300 border px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+            className="mt-1 block w-full rounded-sm border-gray-300 border px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
             value={attrs.validValuesMin ?? ''}
             placeholder="No minimum"
             onChange={(e) => set({ validValuesMin: e.target.value })}
@@ -25,7 +25,7 @@ export function NumericFields({ attrs, onChange }: Props) {
           <span className="text-sm font-medium text-gray-700">Maximum</span>
           <input
             type="number"
-            className="mt-1 block w-full rounded border-gray-300 border px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+            className="mt-1 block w-full rounded-sm border-gray-300 border px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
             value={attrs.validValuesMax ?? ''}
             placeholder="No maximum"
             onChange={(e) => set({ validValuesMax: e.target.value })}
@@ -36,7 +36,7 @@ export function NumericFields({ attrs, onChange }: Props) {
         <span className="text-sm font-medium text-gray-700">Unit</span>
         <input
           type="text"
-          className="mt-1 block w-full rounded border-gray-300 border px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+          className="mt-1 block w-full rounded-sm border-gray-300 border px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
           value={attrs.unit ?? ''}
           placeholder="e.g. cm, kg, mm"
           onChange={(e) => set({ unit: e.target.value })}
@@ -45,7 +45,7 @@ export function NumericFields({ attrs, onChange }: Props) {
       <label className="block">
         <span className="text-sm font-medium text-gray-700">Decimal places</span>
         <select
-          className="mt-1 block w-full rounded border-gray-300 border px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+          className="mt-1 block w-full rounded-sm border-gray-300 border px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
           value={attrs.decimalPlacesRequired ?? '-1'}
           onChange={(e) => set({ decimalPlacesRequired: e.target.value })}
         >
@@ -61,7 +61,7 @@ export function NumericFields({ attrs, onChange }: Props) {
         <label className="flex items-center gap-2 text-sm text-gray-700">
           <input
             type="checkbox"
-            className="rounded text-green-600"
+            className="rounded-sm text-green-600"
             checked={attrs.allowInvalidValues ?? false}
             onChange={(e) => set({ allowInvalidValues: e.target.checked })}
           />
@@ -70,7 +70,7 @@ export function NumericFields({ attrs, onChange }: Props) {
         <label className="flex items-center gap-2 text-sm text-gray-700">
           <input
             type="checkbox"
-            className="rounded text-green-600"
+            className="rounded-sm text-green-600"
             checked={attrs.mathSymbolsEnabled ?? true}
             onChange={(e) => set({ mathSymbolsEnabled: e.target.checked })}
           />

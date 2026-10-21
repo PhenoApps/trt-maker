@@ -137,7 +137,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
     >
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b shrink-0">
           <h2 className="text-lg font-semibold text-gray-900">Import from BrAPI</h2>
           <button
             onClick={onClose}
@@ -161,7 +161,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
                   type="url"
                   autoFocus
                   placeholder="https://example.org/brapi"
-                  className="block w-full rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="block w-full rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500"
                   value={serverUrl}
                   onChange={(e) => setServerUrl(e.target.value)}
                   onKeyDown={(e) => {
@@ -220,7 +220,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
               <input
                 type="search"
                 placeholder="Filter by name…"
-                className="mb-3 block w-full rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="mb-3 block w-full rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-blue-500 focus:outline-hidden focus:ring-1 focus:ring-blue-500"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -231,7 +231,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
                   type="checkbox"
                   checked={allInViewSelected}
                   onChange={handleToggleAll}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600"
+                  className="h-4 w-4 rounded-sm border-gray-300 text-blue-600 accent-blue-600"
                 />
                 <span className="text-xs text-gray-500">
                   {selectedIds.size} selected
@@ -260,7 +260,7 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
                         disabled={dupe}
                         checked={checked}
                         onChange={() => handleToggle(trait)}
-                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 flex-shrink-0"
+                        className="mt-0.5 h-4 w-4 rounded-sm border-gray-300 text-blue-600 accent-blue-600 shrink-0"
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
@@ -268,12 +268,12 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
                             {trait.name}
                           </span>
                           <span
-                            className={`rounded-full px-2 py-0.5 text-xs font-medium flex-shrink-0 ${colorClass}`}
+                            className={`rounded-full px-2 py-0.5 text-xs font-medium shrink-0 ${colorClass}`}
                           >
                             {FORMAT_LABELS[trait.format]}
                           </span>
                           {dupe && (
-                            <span className="rounded-full px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-700 flex-shrink-0">
+                            <span className="rounded-full px-2 py-0.5 text-xs font-medium bg-yellow-100 text-yellow-700 shrink-0">
                               Already added
                             </span>
                           )}
@@ -296,11 +296,11 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="flex justify-end gap-3 px-6 py-4 border-t flex-shrink-0">
+        <div className="flex justify-end gap-3 px-6 py-4 border-t shrink-0">
           {phase === 'loading' ? (
             <button
               onClick={handleCancel}
-              className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-sm border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </button>
@@ -308,14 +308,14 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
             <>
               <button
                 onClick={onClose}
-                className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="rounded-sm border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConnect}
                 disabled={!serverUrl.trim()}
-                className="rounded bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+                className="rounded-sm bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Connect
               </button>
@@ -324,14 +324,14 @@ export function BrapiModal({ existingTraitNames, onImport, onClose }: Props) {
             <>
               <button
                 onClick={onClose}
-                className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="rounded-sm border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleImport}
                 disabled={selectedIds.size === 0}
-                className="rounded bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+                className="rounded-sm bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Import {selectedIds.size > 0 ? selectedIds.size : ''} Trait
                 {selectedIds.size !== 1 ? 's' : ''}

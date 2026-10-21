@@ -10,7 +10,7 @@ export function TextFields({ attrs, onChange }: Props) {
     <label className="flex items-center gap-2 text-sm text-gray-700">
       <input
         type="checkbox"
-        className="rounded text-green-600"
+        className="rounded-sm text-green-600"
         checked={attrs.closeKeyboardOnOpen ?? false}
         onChange={(e) => onChange({ ...attrs, closeKeyboardOnOpen: e.target.checked })}
       />

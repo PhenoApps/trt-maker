@@ -57,7 +57,7 @@ export function CategoricalFields({ attrs, onChange }: Props) {
         <div className="mt-2 flex gap-2">
           <input
             type="text"
-            className="flex-1 rounded border-gray-300 border px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+            className="flex-1 rounded-sm border-gray-300 border px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
             placeholder="Add category…"
             value={newCat}
             onChange={(e) => setNewCat(e.target.value)}
@@ -66,7 +66,7 @@ export function CategoricalFields({ attrs, onChange }: Props) {
           <button
             type="button"
             onClick={addCategory}
-            className="rounded bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
+            className="rounded-sm bg-green-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-green-700"
           >
             Add
           </button>
@@ -76,7 +76,7 @@ export function CategoricalFields({ attrs, onChange }: Props) {
         <label className="flex items-center gap-2 text-sm text-gray-700">
           <input
             type="checkbox"
-            className="rounded text-green-600"
+            className="rounded-sm text-green-600"
             checked={attrs.allowMulticat ?? false}
             onChange={(e) => set({ allowMulticat: e.target.checked })}
           />
@@ -85,7 +85,7 @@ export function CategoricalFields({ attrs, onChange }: Props) {
         <label className="flex items-center gap-2 text-sm text-gray-700">
           <input
             type="checkbox"
-            className="rounded text-green-600"
+            className="rounded-sm text-green-600"
             checked={attrs.allowOther ?? false}
             onChange={(e) => set({ allowOther: e.target.checked })}
           />

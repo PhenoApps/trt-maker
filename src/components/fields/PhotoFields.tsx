@@ -12,7 +12,7 @@ export function PhotoFields({ attrs, onChange }: Props) {
       <label className="flex items-center gap-2 text-sm text-gray-700">
         <input
           type="checkbox"
-          className="rounded text-green-600"
+          className="rounded-sm text-green-600"
           checked={attrs.saveImage ?? true}
           onChange={(e) => set({ saveImage: e.target.checked })}
         />
@@ -21,7 +21,7 @@ export function PhotoFields({ attrs, onChange }: Props) {
       <label className="flex items-center gap-2 text-sm text-gray-700">
         <input
           type="checkbox"
-          className="rounded text-green-600"
+          className="rounded-sm text-green-600"
           checked={attrs.cropImage ?? false}
           onChange={(e) => set({ cropImage: e.target.checked })}
         />

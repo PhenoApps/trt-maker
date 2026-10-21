@@ -121,7 +121,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
             <input
               type="text"
               autoFocus
-              className={`mt-1 block w-full rounded border px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500 ${nameError ? 'border-red-400' : 'border-gray-300'}`}
+              className={`mt-1 block w-full rounded-sm border px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500 ${nameError ? 'border-red-400' : 'border-gray-300'}`}
               value={form.name}
               onChange={(e) => { set({ name: e.target.value }); setNameError('') }}
             />
@@ -134,7 +134,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
               Format <span className="text-red-500">*</span>
             </label>
             <select
-              className="mt-1 block w-full rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
               value={form.format}
               onChange={(e) => handleFormatChange(e.target.value as FormatType)}
             >
@@ -149,7 +149,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
             <label className="block text-sm font-medium text-gray-700">Details / Units</label>
             <input
               type="text"
-              className="mt-1 block w-full rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
               placeholder="e.g. cm, description shown in app"
               value={form.details ?? ''}
               onChange={(e) => set({ details: e.target.value })}
@@ -161,7 +161,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
             <label className="block text-sm font-medium text-gray-700">Default Value</label>
             <input
               type="text"
-              className="mt-1 block w-full rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
               value={form.defaultValue ?? ''}
               onChange={(e) => set({ defaultValue: e.target.value })}
             />
@@ -172,7 +172,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
             <label className="block text-sm font-medium text-gray-700">Alias <span className="text-gray-400 font-normal">(optional display name)</span></label>
             <input
               type="text"
-              className="mt-1 block w-full rounded border border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-green-500 focus:ring-green-500"
+              className="mt-1 block w-full rounded-sm border border-gray-300 px-2 py-1.5 text-sm shadow-xs focus:border-green-500 focus:ring-green-500"
               placeholder="Leave blank to use name"
               value={form.alias ?? ''}
               onChange={(e) => set({ alias: e.target.value })}
@@ -183,7 +183,7 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
           <label className="flex items-center gap-2 text-sm text-gray-700">
             <input
               type="checkbox"
-              className="rounded text-green-600"
+              className="rounded-sm text-green-600"
               checked={form.isVisible ?? true}
               onChange={(e) => set({ isVisible: e.target.checked })}
             />
@@ -207,13 +207,13 @@ export function TraitFormModal({ trait, existingNames, onSave, onClose }: Props)
             <button
               type="button"
               onClick={onClose}
-              className="rounded px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50"
+              className="rounded-sm px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+              className="rounded-sm bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
             >
               {trait ? 'Save Changes' : 'Add Trait'}
             </button>

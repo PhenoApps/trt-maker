@@ -47,7 +47,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
     <div
       ref={setNodeRef}
       style={style}
-      className={`group flex items-center gap-3 rounded-lg border bg-white px-3 py-2.5 shadow-sm hover:border-gray-300 hover:shadow ${isSelected ? 'border-blue-300 bg-blue-50' : 'border-gray-200'}`}
+      className={`group flex items-center gap-3 rounded-lg border bg-white px-3 py-2.5 shadow-xs hover:border-gray-300 hover:shadow-sm ${isSelected ? 'border-blue-300 bg-blue-50' : 'border-gray-200'}`}
     >
       {/* Checkbox */}
       <input
@@ -55,7 +55,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
         checked={isSelected}
         onChange={onToggleSelect}
         onClick={(e) => e.stopPropagation()}
-        className="h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 flex-shrink-0"
+        className="h-4 w-4 rounded-sm border-gray-300 text-blue-600 accent-blue-600 shrink-0"
         aria-label={`Select ${trait.name}`}
       />
 
@@ -63,7 +63,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
       <button
         {...attributes}
         {...listeners}
-        className="cursor-grab touch-none text-gray-300 hover:text-gray-500 flex-shrink-0"
+        className="cursor-grab touch-none text-gray-300 hover:text-gray-500 shrink-0"
         tabIndex={-1}
         aria-label="Drag to reorder"
       >
@@ -75,10 +75,10 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
       </button>
 
       {/* Position */}
-      <span className="w-6 text-right text-xs text-gray-400 flex-shrink-0">{index + 1}</span>
+      <span className="w-6 text-right text-xs text-gray-400 shrink-0">{index + 1}</span>
 
       {/* Format badge */}
-      <span className={`rounded-full px-2 py-0.5 text-xs font-medium flex-shrink-0 ${colorClass}`}>
+      <span className={`rounded-full px-2 py-0.5 text-xs font-medium shrink-0 ${colorClass}`}>
         {FORMAT_LABELS[trait.format]}
       </span>
 
@@ -93,7 +93,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
       {/* Growth stage (from CO / BrAPI imports) */}
       {trait.growthStage && (
         <span
-          className="max-w-[8rem] truncate rounded border border-gray-200 px-1.5 py-0.5 text-xs text-gray-500 flex-shrink-0"
+          className="max-w-32 truncate rounded-sm border border-gray-200 px-1.5 py-0.5 text-xs text-gray-500 shrink-0"
           title={`Growth stage: ${trait.growthStage}`}
         >
           {trait.growthStage}
@@ -103,7 +103,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
       {/* Variable status (from CO / BrAPI imports) */}
       {trait.status && (
         <span
-          className="max-w-[6rem] truncate rounded border border-gray-200 px-1.5 py-0.5 text-xs text-gray-500 flex-shrink-0"
+          className="max-w-24 truncate rounded-sm border border-gray-200 px-1.5 py-0.5 text-xs text-gray-500 shrink-0"
           title={`Status: ${trait.status}`}
         >
           {trait.status}
@@ -112,14 +112,14 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
 
       {/* Visibility indicator */}
       {trait.isVisible === false && (
-        <span className="text-xs text-gray-400 flex-shrink-0" title="Hidden">🚫</span>
+        <span className="text-xs text-gray-400 shrink-0" title="Hidden">🚫</span>
       )}
 
       {/* Actions — always shown on touch screens; on mouse devices revealed on hover or keyboard focus */}
-      <div className="flex gap-1 flex-shrink-0 transition-opacity [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100">
+      <div className="flex gap-1 shrink-0 transition-opacity [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100">
         <button
           onClick={onDuplicate}
-          className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+          className="rounded-sm p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
           title="Duplicate"
         >
           <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -129,7 +129,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
         </button>
         <button
           onClick={onEdit}
-          className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+          className="rounded-sm p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
           title="Edit"
         >
           <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ export function TraitCard({ trait, index, isSelected, onEdit, onDelete, onDuplic
         </button>
         <button
           onClick={onDelete}
-          className="rounded p-1 text-gray-400 hover:bg-red-50 hover:text-red-600"
+          className="rounded-sm p-1 text-gray-400 hover:bg-red-50 hover:text-red-600"
           title="Delete"
         >
           <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
