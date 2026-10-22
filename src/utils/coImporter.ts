@@ -105,6 +105,7 @@ export async function parseCO(buffer: ArrayBuffer): Promise<Trait[]> {
 
   // Resolve column indices from header row — works across template versions
   const col = {
+    variableLabel: findCol(headers, 'Variable label'),
     variableName: findCol(headers, 'Variable name'),
     variableSynonyms: findCol(headers, 'Variable synonyms'),
     traitDescription: findCol(headers, 'Trait description'),
@@ -124,7 +125,9 @@ export async function parseCO(buffer: ArrayBuffer): Promise<Trait[]> {
 
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i]
-    const name = col.variableName !== -1 ? str(row[col.variableName]) : ''
+    // Prefer the human-readable label; fall back to the variable name for templates without one
+    const label = col.variableLabel !== -1 ? str(row[col.variableLabel]) : ''
+    const name = label || (col.variableName !== -1 ? str(row[col.variableName]) : '')
     if (!name) continue
 
     const scaleClass = col.scaleClass !== -1 ? str(row[col.scaleClass]) : ''
